@@ -32,7 +32,7 @@ class Car(GroundVehicle):
     pass
 
 
-class Motocycle(GroundVehicle):
+class Motorcycle(GroundVehicle):
     pass
 
 
