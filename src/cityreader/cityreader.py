@@ -22,7 +22,7 @@ class City:
         self.lat = lat
         self.lon = lon
 
-    def __str__(self):
+    def __repr__(self):
         return f"{self.name} {self.lat} {self.lon}"
 
 
@@ -38,7 +38,6 @@ def cityreader(cities=[]):
 
     for row in reader:
         city = City(row["city"], float(row["lat"]), float(row["lng"]))
-
         cities.append(city)
 
     return cities
@@ -89,5 +88,21 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
     # TODO Ensure that the lat and lon valuse are all floats
     # Go through each city and check to see if it falls within
     # the specified coordinates.
+    reader = csv.DictReader(open('cities.csv'))
+
+    for row in reader:
+        if float(row["lat"]) <= lat1 and float(row["lng"]) <= lon1:
+            within.append(City(row["city"], row["lat"], row["lng"]))
+        elif float(row["lat"]) <= lat2 and float(row["lng"]) <= lon2:
+            within.append(City(row["city"], row["lat"], row["lng"]))
 
     return within
+
+
+lat1, lon1, lat2, lon2 = input(
+    "Enter a comma separated lat and lon: ").split(',')
+
+cities = cityreader_stretch(int(lat1), int(lon1), int(lat2), int(lon2))
+
+for c in cities:
+    print(f"{c.name}: ({c.lat}, {c.lon})")
